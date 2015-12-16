@@ -27,14 +27,11 @@ end
 
 def titleize(string)
 	words = string.split(" ")
-	titled = []
 	words.each { |e| 
 		if (e =~ /(over)|(the)|(and)/) != 0
-			titled.push(e.capitalize)
-		else 
-			titled.push(e)
+			e.capitalize!
 		end
 	}
-	titled[0].capitalize!
-	return titled.join(" ")
+	words[0].capitalize!
+	return words.join(" ")
 end
