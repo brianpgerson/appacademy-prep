@@ -5,6 +5,11 @@
 
 class Array
   def sum
+    sum = 0
+    0.upto(self.length - 1) do |i|
+      sum += self[i]
+    end
+    sum
   end
 end
 
@@ -16,9 +21,18 @@ end
 
 class Array
   def square!
+    0.upto(self.length - 1) do |i|
+      self[i] = self[i]*self[i]
+    end
+    self
   end
 
   def square
+    new_array = []
+    self.each do |el|
+      new_array << el*el
+    end
+    new_array
   end
 end
 
@@ -36,6 +50,13 @@ end
 
 class Array
   def my_uniq
+    uniques = []
+    0.upto(self.length - 1) do |i|
+      if !uniques.include?(self[i])
+        uniques << self[i]
+      end
+    end
+    uniques
   end
 end
 
@@ -57,6 +78,15 @@ end
 
 class Array
   def two_sum
+    pairs = []
+    0.upto(self.length - 2) do |i|
+      i+1.upto(self.length - 1) do |j|
+        if self[i] + self[j] == 0 && i != j
+          pairs << [i, j]
+        end
+      end
+    end
+    pairs
   end
 end
 
@@ -69,6 +99,16 @@ end
 
 class Array
   def median
+    arr = self.sort
+    if arr.empty?
+      median = nil
+    elsif arr.length % 2 != 0
+      median = arr[((arr.length - 1)/2)]
+    else
+      middle_two = arr[(arr.length/2)] + arr[(arr.length/2)-1]
+      median = middle_two/2.0
+    end
+    median
   end
 end
 
@@ -121,6 +161,15 @@ end
 
 class Array
   def my_transpose
+    t_array = []
+    0.upto(self.length - 1) do |i|
+      new_row = []
+      0.upto(self[i].length - 1) do |j|
+        new_row << self[j][i]
+      end
+      t_array << new_row
+    end
+    t_array
   end
 end
 
