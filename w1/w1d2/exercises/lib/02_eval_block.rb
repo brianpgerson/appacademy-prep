@@ -45,3 +45,44 @@
 # eval_block(1, 2, 3)
 # # => "NO BLOCK GIVEN"
 # ```
+
+
+
+
+def eval_block(*args, &brock)
+	if !block_given?
+		raise "NO BLOCK GIVEN. FIGURE IT OUT, ASSHOLE!"
+	else
+		yield *args
+	end
+end
+
+eval_block(1,2,3,4,5) do |*args|
+	x = args.inject{|a,b| a + b}
+	puts x
+end
+
+eval_block("dogs", "bark", 42) do |animal, verb, times|
+	puts "#{animal} #{verb} #{times} times. What an ANIMAL!"
+end
+
+eval_block("dogs")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
