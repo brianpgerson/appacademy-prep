@@ -17,8 +17,45 @@
 #   `"z"`! Ex.: `caesar("zany", 2) # => "bcpa"`
 
 class String
-  def caesar(shift)
-  end
+	def caesar(shift)
+		code_hash = {
+			97 => "a", 
+			98 => "b", 
+			99 => "c", 
+			100 => "d",
+			101 => "e",
+			102 => "f",
+			103 => "g",
+			104 => "h",
+			105 => "i",
+			106 => "j",
+			107 => "k",
+			108 => "l",
+			109 => "m",
+			110 => "n",
+			111 => "o",
+			112 => "p",
+			113 => "q",
+			114 => "r",
+			115 => "s",
+			116 => "t",
+			117 => "u",
+			118 => "v",
+			119 => "w",
+			120 => "x",
+			121 => "y",
+			122 => "z"
+		}
+		new_arr = self.split("");
+		codes = new_arr.map do |letter|
+			if letter.ord + shift > 122
+				(letter.ord + shift) - 26
+			else
+				letter.ord + shift
+			end
+		end
+		new_word = (codes.map {|num| code_hash[num] }).join("")
+	end
 end
 
 # Hash: Difference
@@ -35,8 +72,20 @@ end
 # ```
 
 class Hash
-  def difference(other_hash)
-  end
+	def difference(other_hash)
+		new_hash = {}
+		self.each do |key, value|
+			if !(self.include?(key) && other_hash.include?(key))
+				new_hash[key] = value
+			end
+		end
+		other_hash.each do |key, value|
+			if !(other_hash.include?(key) && self.include?(key))
+				new_hash[key] = value
+			end
+		end
+		new_hash
+	end
 end
 
 # Stringify
@@ -95,10 +144,41 @@ end
 # character. Make a `Hash` where the keys are digit numbers (up to and
 # including 15) and the values are the characters to use (up to and
 # including `F`).
-
 class Fixnum
-  def stringify(base)
-  end
+	def stringify(base)
+		digit_hash = {
+			0 => "0",
+			1 => "1", 
+			2 => "2", 
+			3 => "3", 
+			4 => "4", 
+			5 => "5", 
+			6 => "6", 
+			7 => "7", 
+			8 => "8", 
+			9 => "9", 
+			10 => "a", 
+			11 => "b", 
+			12 => "c", 
+			13 => "d", 
+			14 => "e", 
+			15 => "f", 
+			16 => "g"
+		}
+		basepower = 1
+		digits = []
+		if base == 10
+			return self.to_s
+		elsif self <= base
+			return digit_hash[self]
+		end
+		while basepower < self
+			digits << ((self/basepower)%base)
+			basepower *= base
+		end
+		digits.reverse!
+		coded = (digits.map { |dig| digit_hash[dig] }).join("")
+	end
 end
 
 # Bonus: Refactor your `String#caesar` method to work with strings containing
