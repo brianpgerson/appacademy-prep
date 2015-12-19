@@ -29,8 +29,65 @@
 # all the items of `set1` that aren't in `set2`.
 
 class MyHashSet
+	def initialize
+		@store = {}
+	end
+
+	def insert(el)
+		@store[el] = true
+	end
+
+	def include?(el)
+		@store[el] == true
+	end
+
+	def delete(el)
+		if @store.include?(el)
+			@store.delete(el)
+			true
+		else
+			false
+		end
+	end
+
+	def to_a
+		@store.keys.map{|key| key}
+	end
+
+	def union(set2)
+		union_set = self.class.new
+		self.to_a.each { |k| union_set.insert(k) }
+		set2.to_a.each { |k| union_set.insert(k) }
+		union_set
+	end
+
+	def intersect(set2)
+		inter_set = self.class.new
+		self.to_a.each do |k|
+			if set2.include?(k)
+				inter_set.insert(k)
+			end
+		end
+		inter_set
+	end
+
+	def minus(set2)
+		minus_set = self.class.new
+		self.to_a.each do |k|
+			if !set2.include?(k)
+				minus_set.insert(k)
+			end
+		end
+		minus_set
+	end
+
+	def equalto(object)
+		puts self.class
+	end
 end
 
+set1 = MyHashSet.new
+puts set1.class
 # Bonus
 #
 # - Write a `set1#symmetric_difference(set2)` method; it should return the
