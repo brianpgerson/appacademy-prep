@@ -1,3 +1,4 @@
+require 'byebug'
 # Towers of Hanoi
 #
 # Write a Towers of Hanoi game:
@@ -40,5 +41,71 @@
 # methods named above.
 
 class TowersOfHanoi
+	attr_reader :towers
 
+	def initialize
+		@towers = [[3,2,1],[],[]] 
+	end
+
+	def move(from_tower, to_tower)
+		if valid_move?(from_tower, to_tower)
+			moving_disc = self.towers[from_tower].pop
+			self.towers[to_tower] << moving_disc
+		end
+	end
+
+	def valid_move?(from_tower, to_tower)
+		return false if self.towers[from_tower].empty? || (self.towers[from_tower] == nil || self.towers[to_tower] == nil)
+		if !self.towers[to_tower].empty?
+			return false if self.towers[to_tower].last < self.towers[from_tower].last
+		end
+		true
+	end
+
+	def won?
+		return true if self.towers[1].length == 3 || self.towers[2].length == 3
+		false
+	end
+
+	def render
+		print "The current Towers of Hanoi: #{self.towers}\n\n"
+	end
+
+	def play
+		instructions
+		while !won?
+			self.render
+			puts "Enter your next move."
+			input = gets.chomp
+			while input.scan(/\d\s\d/)[0] == nil
+				if input == "exit"
+					return
+				end
+				puts "Try again, using valid input."
+				input = gets.chomp
+			end
+			from_tower, to_tower = input.split(" ")[0].to_i, input.split(" ")[1].to_i
+			if valid_move?(from_tower, to_tower)
+				move(from_tower, to_tower)
+			else
+				puts "That didn't work!"
+			end
+		end
+		puts "You've WON!"
+	end
+
+	def instructions
+		puts "Welcome to Towers of Hanoi!\n\nHere is the current setup: #{self.towers}\n\nPick a tower to move the top (right-most) disk from, and a tower to move it to.\n\nYou can move a disk to any tower that is empty, or where the moving disk is smaller than the top disk of the receiving tower. You will win when all three disks have successfully moved from the first tower.\n\nEnter your input like this: '0 1' to move a disk from the first tower to the second."
+	end
 end
+
+game = TowersOfHanoi.new
+towers = game.towers
+game.play
+
+
+
+
+
+
+

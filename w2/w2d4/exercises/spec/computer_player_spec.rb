@@ -21,11 +21,11 @@ describe "ComputerPlayer" do
   describe "get_move" do
     context "when a winning move is available" do
       it "should return the winning move" do
-        place_marks([[0, 0], [1, 0]], :O)
+        place_marks([[2, 0], [1, 1]], :O)
         comp.mark = :O
         comp.display(board)
 
-        expect(comp.get_move).to eq([2, 0])
+        expect(comp.get_move).to eq([0, 2])
       end
     end
 
