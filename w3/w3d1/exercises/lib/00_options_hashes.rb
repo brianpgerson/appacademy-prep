@@ -1,3 +1,4 @@
+require "byebug"
 # Options Hashes
 #
 # Write a method `transmogrify` that takes a `String`. This method should
@@ -17,3 +18,22 @@
 # transmogrify("hello", options)
 # # options shouldn't change.
 # ```
+
+
+def transmogrify(string, options = {})
+	debugger
+	defaults = {
+		times: 1,
+		upcase: false,
+		reverse: false
+	}
+	options = defaults.merge(options)
+	if options[:upcase] == true && options[:reverse] == true
+		new_string = string.upcase.reverse
+	elsif options[:upcase] == false && options[:reverse] == false
+		new_string = string
+	else
+		options[:upcase] == true ? new_string = string.upcase : new_string = string.reverse
+	end
+	new_string * options[:times]
+end

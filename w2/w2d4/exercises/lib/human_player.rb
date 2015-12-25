@@ -14,6 +14,7 @@ class HumanPlayer
 
 	def get_move
 		puts "Where should we move?"
+		if input =~ /(\d.\s\d)/ == 0
 		input = gets.chomp.split(", ").map { |e| e.to_i }
 	end
 end

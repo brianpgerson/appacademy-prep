@@ -1,4 +1,3 @@
-require "byebug"
 class ComputerPlayer
 	attr_accessor :name, :board, :mark
 
