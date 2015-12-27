@@ -22,24 +22,4 @@ class Ship
 		@direction = direction
 	end
 
-	def report
-		report = []
-		start = @location
-		if direction == "right"
-			start = location[0]
-			start.upto(start + @length - 1) do |x|
-				report << board.grid[start[1]][x]
-			end
-		else 
-			start = location[1]
-			start.upto(start + @length - 1) do |y|
-				report << board.grid[y][start[0]]
-			end
-		end
-	end
-
-	def alive?
-		report.any { |x| x == :SHIP }
-	end
-
 end
